@@ -5,7 +5,7 @@
 
 	<script type="text/javascript" src="juicer-min.js></script>
 
-### 使用方法
+### 使用
 
 **嵌入**
 ``` js
@@ -29,6 +29,7 @@ embedSWF.remove('someId');
   * Firefox 3.5+
   * Opera
 
-### License
+  
+#License
 
 embedSWF is available under the terms of the [MIT License](http://seajs.org/LICENSE.md).
