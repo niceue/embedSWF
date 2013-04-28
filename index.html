@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>flash</title>
+	<style>	
+		.test{
+			width: 728px;
+			height: 170px;
+		}
+	</style>
+</head> 
+
+<body>
+
+<button onclick="init()">Init</button>
+<button onclick="embedSWF.remove('test')">Destroy</button>
+
+<div id="test" class="test"></div>
+
+<script type="text/javascript" src="embedSWF.debug.js"></script>
+<script>
+    function init() {
+        embedSWF.base = 'http://test.cxm/flash';
+        embedSWF('test', {
+            src: 'http://wwwimages.adobe.com/www.adobe.com/multimedia/en_us/get/flash/flash_installed_728x170.swf',
+            version: '12.0',
+            //base: 'http://test.cxm/flash/',
+            width: 728,
+            height: 170
+        });
+        //alert(embedSWF.base)
+    }
+    init();
+</script>
+</body>
+</html>

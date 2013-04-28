@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+.cache
+.tmproj
+.project
+.settings
+*.esproj
+*.patch
+*.diff
+*.bak
