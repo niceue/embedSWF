@@ -1,28 +1,34 @@
 # embedSWF
 简单，现代化的Flash动态嵌入方案.
 
-### usage: ###
+### 引入
+
+	<script type="text/javascript" src="juicer-min.js></script>
+
+### 使用方法
 
 **嵌入**
-
-`js:embedSWF('someId', {
+``` js
+embedSWF('someId', {
     src: 'path/to/flash.swf',
     width: 640,
     height: 320
-});`
+});
+```
 
 **移除**
-
-`js:embedSWF.remove('someId');`
+``` js
+embedSWF.remove('someId');
+```
 
 #Browser Support
 
-IE6+
+  * IE6+
+  * Chrome
+  * Safari 4+
+  * Firefox 3.5+
+  * Opera
 
-Chrome
+### License
 
-Firefox3.6+
-
-Opera9.0+
-
-Safari5.0+
+embedSWF is available under the terms of the [MIT License](http://seajs.org/LICENSE.md).
