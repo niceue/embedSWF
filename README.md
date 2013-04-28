@@ -5,9 +5,8 @@
 
 	<script type="text/javascript" src="embedSWF.js></script>
 
-### 使用
+### 嵌入
 
-**嵌入**
 ``` js
 embedSWF('someId', {
     src: 'path/to/flash.swf',
@@ -16,7 +15,8 @@ embedSWF('someId', {
 });
 ```
 
-**移除**
+### 移除
+
 ``` js
 embedSWF.remove('someId');
 ```
