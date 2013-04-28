@@ -1,4 +1,4 @@
-# embedSWF
+##embedSWF
 简单，现代化的Flash动态嵌入方案.
 
 ### 引入
@@ -21,7 +21,7 @@ embedSWF('someId', {
 embedSWF.remove('someId');
 ```
 
-#Browser Support
+##Browser Support
 
   * IE6+
   * Chrome
@@ -30,6 +30,6 @@ embedSWF.remove('someId');
   * Opera
 
   
-#License
+##License
 
-embedSWF is available under the terms of the [MIT License](http://seajs.org/LICENSE.md).
+embedSWF is available under the terms of the [MIT License](https://github.com/niceue/embedSWF/blob/master/LICENSE.txt).
