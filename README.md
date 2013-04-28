@@ -3,7 +3,7 @@
 
 ### 引入
 
-	<script type="text/javascript" src="juicer-min.js></script>
+	<script type="text/javascript" src="embedSWF.js></script>
 
 ### 使用
 
