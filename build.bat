@@ -1,3 +1,6 @@
 @echo off
 
-uglifyjs embedSWF.debug.js -o embedSWF.js -c -m --comments "/\/*!/"
+set SRC=embedSWF.debug.js
+set MIN=embedSWF.js
+
+uglifyjs %SRC% -o %MIN% -c -m --comments "/\/*!/"

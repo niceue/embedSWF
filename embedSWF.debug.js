@@ -2,12 +2,21 @@
 * (c) 2013 Jony Zhang <zj86@live.cn>, MIT Licensed
 * https://github.com/niceue/embedSWF/
 */
-var embedSWF = (function () {
-
+(function (root, factory) {
+    //RequireJS, OzJS, curl, SeaJS
+    if ( typeof define === 'function' && define.amd || root.seajs ) {
+        define(factory);
+    //CommonJS
+    } else if (typeof exports === 'object') {
+        exports.embedSWF = factory();
+    } else {
+        factory();
+    }
+}(this, function () {
     var doc = document,
         isIE = !!window.ActiveXObject,
         ATTRIBUTES = "width height name id class style title type align tabindex usemap",
-        EXPRESS_INSTALL = "expressInstall.swf?_=" + (+new Date()),
+        EXPRESS_INSTALL = "expressInstall.swf?" + (+new Date()),
         EXPRESS_INSTALL_ID = 'ExpressInstall',
         isExpressInstallActive = false,
         cacheHTML = '',
@@ -47,6 +56,7 @@ var embedSWF = (function () {
             fv,
             dom,
             base,
+            error,
             attrs = {
                 type: Flash_TYPE,
                 width: '100%',
@@ -82,6 +92,7 @@ var embedSWF = (function () {
         //If the flash have not yet been installed.
         if (!FLASH_VERSION) {
             if (!dom || !dom.firstChild) html = placeholder(attrs);
+            error = 1;
         } else {
             html = createSWF(attrs, params);
             
@@ -90,6 +101,7 @@ var embedSWF = (function () {
              */
             if (parseFloat(opt.version || MIN_VERSION) > FLASH_VERSION) {
                 if (isExpressInstallActive) return;
+                error = 2;
                 cacheHTML = html;
                 attrs.id = EXPRESS_INSTALL_ID;
                 
@@ -114,6 +126,8 @@ var embedSWF = (function () {
         }
 
         if (dom && html) dom.innerHTML = html;
+        error && typeof opt.fallback == 'function' && opt.fallback(error);
+        
         return html;
     }
     
@@ -181,17 +195,14 @@ var embedSWF = (function () {
         isExpressInstallActive = false;
     }
     
-    embedSWF.remove = removeSWF;
-    embedSWF.ua = {
-        ie: isIE,
-        pv: FLASH_VERSION
-    };
+    embedSWF.destroy = removeSWF;
+    embedSWF.flashVersion = FLASH_VERSION;
     embedSWF.base = (function(){
         var scripts = doc.getElementsByTagName('script'),
             i = scripts.length,
             src,
             base,
-            regex = /embedSWF(?:\.debug)?\.js/;
+            regex = /embedSWF(?:\.debug)?\.js/i;
         while (i--) {
             src = scripts[i].src;
             if ( regex.test(src) ) {
@@ -211,6 +222,7 @@ var embedSWF = (function () {
             isExpressInstallActive = false;
         }
     };
+    
     //Public API
-    return embedSWF;
-})();
+    return window.embedSWF = embedSWF;
+}));

@@ -1,3 +1,6 @@
 #!/bin/bash
 
-uglifyjs embedSWF.debug.js -o embedSWF.js -c -m --comments "/\/*!/"
+SRC=embedSWF.debug.js
+MIN=embedSWF.js
+
+uglifyjs $SRC -o $MIN -c -m --comments "/\/*!/"
