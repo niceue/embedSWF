@@ -6,9 +6,6 @@
     //RequireJS, OzJS, curl, SeaJS
     if ( typeof define === 'function' && define.amd || root.seajs ) {
         define(factory);
-    //CommonJS
-    } else if (typeof exports === 'object') {
-        exports.embedSWF = factory();
     } else {
         factory();
     }
@@ -49,7 +46,7 @@
             height: 320
         });
         //移除
-        embedSWF.remove('someId');
+        embedSWF.destroy('someId');
     **/
     function embedSWF(id, opt){
         var html = '',
@@ -126,7 +123,7 @@
         }
 
         if (dom && html) dom.innerHTML = html;
-        error && typeof opt.fallback == 'function' && opt.fallback(error);
+        error && typeof opt.fallback === 'function' && opt.fallback(error);
         
         return html;
     }
@@ -201,13 +198,11 @@
         var scripts = doc.getElementsByTagName('script'),
             i = scripts.length,
             src,
-            base,
             regex = /embedSWF(?:\.debug)?\.js/i;
         while (i--) {
             src = scripts[i].src;
             if ( regex.test(src) ) {
-                base = src.split('/').slice(0, -1).join('/');
-                return base ? base+'/' : '';
+                return src.split('/').slice(0, -1).join('/') || '';
             }
         }
         return '';
