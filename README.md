@@ -39,10 +39,10 @@ embedSWF.base = "path/to/expressInstall.swf";
 ```
 or set the path when you embed a flash:
 ``` js
-    embedSWF('someId', {
-        src: 'path/to/flash.swf',
-        base: "path/to/expressInstall.swf"
-    });
+embedSWF('someId', {
+    src: 'path/to/flash.swf',
+    base: "path/to/expressInstall.swf"
+});
 ```
 
 
