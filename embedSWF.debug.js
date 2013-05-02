@@ -207,7 +207,7 @@
         }
         return '';
     })();
-    embedSWF.callback = function(){
+    embedSWF.installCallback = function(){
         if (isExpressInstallActive) {
             var dom = doc.getElementById(EXPRESS_INSTALL_ID),
                 prt = dom.parentNode;
