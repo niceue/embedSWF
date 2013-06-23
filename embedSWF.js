@@ -1,4 +1,4 @@
-/*! embedSWF 1.0.0
+/*! embedSWF 0.1.0
 * (c) 2013 Jony Zhang <zj86@live.cn>, MIT Licensed
 * https://github.com/niceue/embedSWF/
 */
