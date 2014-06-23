@@ -2,14 +2,15 @@
 * (c) 2013 Jony Zhang <zj86@live.cn>, MIT Licensed
 * https://github.com/niceue/embedSWF/
 */
-(function (root, factory) {
-    //RequireJS, OzJS, curl, SeaJS
-    if ( typeof define === 'function' && define.amd || root.seajs ) {
-        define(factory);
+(function (factory) {
+    if ( typeof define === 'function' ) {
+        define(function(require, exports, module){
+            return factory(module.uri);
+        });
     } else {
         factory();
     }
-}(this, function () {
+}(function (uri) {
     var doc = document,
         isIE = !!window.ActiveXObject,
         ATTRIBUTES = "width height name id class style title type align tabindex usemap",
@@ -18,7 +19,6 @@
         isExpressInstallActive = false,
         cacheHTML = '',
         MIN_VERSION = "9,0,28,0",
-        Flash_TYPE = "application/x-shockwave-flash",
         FLASH_VERSION = (function(){
             var ver, SF = 'ShockwaveFlash', plug;
             if (isIE) {
@@ -55,7 +55,7 @@
             base,
             error,
             attrs = {
-                type: Flash_TYPE,
+                type: 'application/x-shockwave-flash',
                 width: '100%',
                 height: '100%'
             },
@@ -143,8 +143,7 @@
         if (isIE) {
             //对于IE，加上codebase参数才可以在没有安装flash的情况下自动提示安装ActiveX控件
             //attrs.codebase = "//download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=" + MIN_VERSION;
-            //IE6-8必须同时设置data属性和src参数(或者movie参数)
-            attrs.data = params.src;
+            attrs.classid = 'clsid:d27cdb6e-ae6d-11cf-96b8-444553540000';
             html += '<object' + obj2attr(attrs) + '>';
             for (key in params) {
                 html+='<param name="'+ key +'" value="'+ params[key] +'">';
@@ -194,19 +193,14 @@
     
     embedSWF.destroy = removeSWF;
     embedSWF.flashVersion = FLASH_VERSION;
-    embedSWF.base = (function(){
-        var scripts = doc.getElementsByTagName('script'),
-            i = scripts.length,
-            src,
-            regex = /embedSWF(?:\.debug)?\.js/i;
-        while (i--) {
-            src = scripts[i].src;
-            if ( regex.test(src) ) {
-                return src.split('/').slice(0, -1).join('/') || '';
-            }
+    embedSWF.base = (function(uri){
+        if (!uri) {
+            var scripts = doc.getElementsByTagName('script'),
+                script = scripts[ scripts.length - 1 ];
+            uri = script.src;
         }
-        return '';
-    })();
+        return uri.split('/').slice(0, -1).join('/');
+    })(uri);
     embedSWF.installCallback = function(){
         if (isExpressInstallActive) {
             var dom = doc.getElementById(EXPRESS_INSTALL_ID),
